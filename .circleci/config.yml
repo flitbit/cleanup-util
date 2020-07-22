@@ -3,7 +3,6 @@ executors:
   node-12:
     docker:
       - image: circleci/node:12
-      - image: rabbitmq:3-management
 
 commands:
   npm-ci:
