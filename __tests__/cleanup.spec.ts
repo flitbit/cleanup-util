@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { EventEmitter } from 'events';
-import { cleanupPropagationEvent, addCleanupTask } from '..';
+import { cleanupPropagationEvent, addCleanupTask } from '../src';
 
 const delay = async (ms: number): Promise<void> => {
   return new Promise(resolve => {
@@ -116,7 +116,8 @@ describe('.addCleanupTask(sender, listener, task)', () => {
     expect(() => addCleanupTask(new EventEmitter(), {}, undefined)).to.throw('task (func) is required');
   });
   it('throws when cleanup propagation not setup for sender', () => {
-    expect(() => addCleanupTask(new EventEmitter(), {}, () => null)).to.throw(
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    expect(() => addCleanupTask(new EventEmitter(), {}, (): void => { })).to.throw(
       /^Invalid operation: no cleanup propagation on EventEmitter/
     );
   });

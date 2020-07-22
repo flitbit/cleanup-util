@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { iid, clearIid, getIid } from '..';
+import { iid, clearIid, getIid } from '../src';
 
 describe('Instance Id:', () => {
   describe('iid(target?, alternateName?)', () => {

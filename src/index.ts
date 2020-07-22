@@ -53,7 +53,7 @@ export const clearIid = <T>(target?: T): void => {
 
 export const getIid = <T>(target?: T): string => {
   if (target === undefined || target === null) {
-    return;
+    return undefined;
   }
   const s = (target as unknown) as Cleanup;
   return s[$iid];
