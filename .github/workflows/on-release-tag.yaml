@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - pipeline
+    # tags:
+    #   - 'v*'
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: use node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: install dependencies
+        run: npm ci
+
+      - name: build and test
+        run: npm run ci
+
+      - name: build and test
+        run: |
+          npm i -g json semver
+          PACKAGE_VERSION="$(cat package.json | json version)"
+          BRANCH_NAME=$(git symbolic-ref HEAD)
+          VERSION_PRE="$(semver -i prepatch --preid ${BRANCH_NAME}.$(git rev-parse --short HEAD) ${PACKAGE_VERSION})"
+          npm --no-git-tag-version version ${VERSION_PRE%.0}
+          cat package.json | json version
