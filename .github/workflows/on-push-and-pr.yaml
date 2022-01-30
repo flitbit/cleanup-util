@@ -25,6 +25,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: install dependencies
         run: npm ci
@@ -48,6 +49,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: install dependencies
         run: npm ci
