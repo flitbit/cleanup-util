@@ -1,26 +1,25 @@
 {
+  "include": ["./src/**/*", "./**/*.js"],
   "compilerOptions": {
-    "target": "es5",
-    "module": "CommonJS",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "importHelpers": true,
-    "jsx": "react",
-    "alwaysStrict": true,
+    "module": "es2022",
+    "target": "es2019",
+    "outDir": "dist/esm/",
+    "rootDir": "./src",
+    "strict": true,
     "sourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "declaration": true,
+    "declarationMap": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": false
-  },
-  "include": [
-    "src/**/*",
-    "__tests__/**/*",
-    "examples/**/*"
-  ]
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    // "composite": true,
+    "baseUrl": ".",
+    "typeRoots": ["types/", "node_modules/@types"],
+    "paths": {}
+  }
 }
