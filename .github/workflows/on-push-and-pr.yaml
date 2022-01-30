@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches:
+      - '*'
       - '!main'
   pull_request:
     branches:
@@ -36,7 +37,7 @@ jobs:
     name: NPM pre-release
     runs-on: ubuntu-latest
     needs: ci_check
-    if: "contains(github.event.head_commit.message, '[pre-release]')"
+    if: "contains(github.event.head_commit.message, '#pre-release')"
 
     steps:
       - name: checkout code
