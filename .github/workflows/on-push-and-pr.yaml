@@ -32,9 +32,9 @@ jobs:
         run: npm run ci
 
   npm_pre_release:
-    if: contains(github.event.head_commit.message, '#pre-release')
+    if: contains(github.event.head_commit.message, '!pre-release')
     runs-on: ubuntu-latest
-    needs: [ci_check]
+    needs: ci_check
 
     steps:
       - name: checkout code
