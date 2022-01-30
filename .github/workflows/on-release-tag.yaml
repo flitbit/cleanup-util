@@ -2,14 +2,15 @@ name: CI
 
 on:
   push:
-    branches:
-      - pipeline
-    # tags:
-    #   - 'v*'
+    tags:
+      - 'v*'
 
 jobs:
-  ci_check:
+  publish:
+    name: Publish package
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
       - name: checkout code
@@ -27,11 +28,5 @@ jobs:
       - name: build and test
         run: npm run ci
 
-      - name: calc semver
-        run: |
-          npm i -g json semver
-          PACKAGE_VERSION="$(cat package.json | json version)"
-          BRANCH_NAME=$(git symbolic-ref --short HEAD)
-          VERSION_PRE="$(semver -i prepatch --preid ${BRANCH_NAME}.$(git rev-parse --short HEAD) ${PACKAGE_VERSION})"
-          npm --no-git-tag-version version ${VERSION_PRE%.0}
-          cat package.json | json version
+      - name: publish release
+        run: npm publish
