@@ -54,6 +54,9 @@ jobs:
       - name: install dependencies
         run: npm ci
 
+      - name: build
+        run: npm run build
+
       - name: publish pre-release
         run: |
           npm i -g json semver
