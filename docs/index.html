@@ -1,0 +1,63 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>cleanup-util</title><meta name="description" content="Documentation for cleanup-util"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">cleanup-util</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>cleanup-util</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#cleanup-util-middot-" id="cleanup-util-middot-" style="color: inherit; text-decoration: none;">
+  <h1>cleanup-util &middot; <a href="https://github.com/flitbit/cleanup-util/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="GitHub license"></a></h1>
+</a>
+<blockquote>
+<p>Utility for cleaning up event handlers</p>
+</blockquote>
+<p><strong>cleanup-util</strong> is a small, utility for tracking and cleaning up event handlers. I find this utility useful when I have classes derived from EventHandler that are used throughout the life of my applications and those EventHandlers frequently have event handlers added and removed. It helps me catch memory leaks from dangling event listeners early in the development process.  I hope you find it useful.</p>
+
+<a href="#installing--getting-started" id="installing--getting-started" style="color: inherit; text-decoration: none;">
+  <h2>Installing / Getting started</h2>
+</a>
+<p><strong>cleanup-util</strong> is installed using npm:</p>
+<pre><code class="language-shell"><span class="hl-0">npm install -S cleanup-util</span>
+</code></pre>
+<p>In the above command we install <strong>cleanup-util</strong> into the local project, updating the dependencies in the <code>project.json</code> file.</p>
+
+<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+  <h2>API</h2>
+</a>
+
+<a href="#cleanuppropagationevent" id="cleanuppropagationevent" style="color: inherit; text-decoration: none;">
+  <h3>cleanupPropagationEvent</h3>
+</a>
+<pre><code class="language-ts"><span class="hl-1">function</span><span class="hl-0"> </span><span class="hl-2">cleanupPropagationEvent</span><span class="hl-0">&lt;</span><span class="hl-3">T</span><span class="hl-0"> </span><span class="hl-1">extends</span><span class="hl-0"> </span><span class="hl-3">EventEmitter</span><span class="hl-0">&gt;(</span><br/><span class="hl-0">  </span><span class="hl-4">sender</span><span class="hl-0">: </span><span class="hl-3">T</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">event</span><span class="hl-0">: </span><span class="hl-3">string</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">listener</span><span class="hl-0">: </span><span class="hl-3">Listener</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">target</span><span class="hl-0">: </span><span class="hl-3">EventEmitter</span><span class="hl-0">,</span><br/><span class="hl-0">  </span><span class="hl-4">reciprocal</span><span class="hl-0">?: </span><span class="hl-3">string</span><br/><span class="hl-0">): </span><span class="hl-3">void</span>
+</code></pre>
+<p>Attaches the specified <code>listener</code> to the specified <code>sender</code>, wrapping the <code>listener</code> to track it&#39;s cleanup.</p>
+<p>If <code>reciprocal</code> is specified, it is the name of an event on <code>target</code>, <strong>cleanup-util</strong> will attach an event handler to the target to cleanup in the background if necessary.</p>
+
+<a href="#addcleanuptask" id="addcleanuptask" style="color: inherit; text-decoration: none;">
+  <h3>addCleanupTask</h3>
+</a>
+<pre><code class="language-ts"><span class="hl-1">function</span><span class="hl-0"> </span><span class="hl-2">addCleanupTask</span><span class="hl-0">&lt;</span><span class="hl-3">S</span><span class="hl-0"> </span><span class="hl-1">extends</span><span class="hl-0"> </span><span class="hl-3">EventEmitter</span><span class="hl-0">, </span><span class="hl-3">T</span><span class="hl-0">&gt;(</span><span class="hl-4">sender</span><span class="hl-0">: </span><span class="hl-3">S</span><span class="hl-0">, </span><span class="hl-4">target</span><span class="hl-0">: </span><span class="hl-3">T</span><span class="hl-0">, </span><span class="hl-4">task</span><span class="hl-0">: </span><span class="hl-3">Task</span><span class="hl-0">): </span><span class="hl-3">void</span>
+</code></pre>
+<p>Adds a task to be run when the cleanup propagation event occurs.</p>
+
+<a href="#iidtarget" id="iidtarget" style="color: inherit; text-decoration: none;">
+  <h3>iid(target)</h3>
+</a>
+<p>Associates an instance Id with a target object.</p>
+
+<a href="#getiidtarget" id="getiidtarget" style="color: inherit; text-decoration: none;">
+  <h3>getIid(target)</h3>
+</a>
+<p>Gets the instance Id associated with an object.</p>
+
+<a href="#clearid" id="clearid" style="color: inherit; text-decoration: none;">
+  <h3>clearId</h3>
+</a>
+<p>Clears the instance Id associated with an object.</p>
+
+<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
+  <h2>Tests</h2>
+</a>
+<p>Tests are built using <a href="https://mochajs.org/">Mocha</a> and chai.</p>
+<pre><code class="language-shell"><span class="hl-0">npm </span><span class="hl-2">test</span>
+</code></pre>
+
+<a href="#licensing" id="licensing" style="color: inherit; text-decoration: none;">
+  <h2>Licensing</h2>
+</a>
+<p>This project is licensed by the MIT license found in this repository&#39;s root.</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-type-alias"><a href="modules.html#Listener" class="tsd-kind-icon">Listener</a></li><li class="tsd-kind-type-alias"><a href="modules.html#Task" class="tsd-kind-icon">Task</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#addCleanupTask" class="tsd-kind-icon">add<wbr/>Cleanup<wbr/>Task</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#cleanupPropagationEvent" class="tsd-kind-icon">cleanup<wbr/>Propagation<wbr/>Event</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#clearIid" class="tsd-kind-icon">clear<wbr/>Iid</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#getIid" class="tsd-kind-icon">get<wbr/>Iid</a></li><li class="tsd-kind-function tsd-has-type-parameter"><a href="modules.html#iid" class="tsd-kind-icon">iid</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
