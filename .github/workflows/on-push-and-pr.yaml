@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_and_test:
+  - name: CI
     runs-on: ubuntu-latest
 
     steps:
@@ -31,9 +31,9 @@ jobs:
       - name: build and test
         run: npm run ci
 
-  pre_release:
+  - name: NPM pre-release
+    if: contains(github.event.head_commit.message, '#pre-release')
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.head_commit.message, '#pre-release') }}
     needs: [build_and_test]
 
     steps:
