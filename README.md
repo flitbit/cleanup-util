@@ -1,7 +1,8 @@
 # cleanup-util &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/flitbit/cleanup-util/blob/master/LICENSE)
+
 > Utility for cleaning up event handlers
 
-**cleanup-util** is a small, utility for tracking and cleaning up event handlers. I find this utility useful when I have classes derived from EventHandler that are used throughout the life of my applications and those EventHandlers frequently have event handlers added and removed. It helps me catch memory leaks from dangling event listeners early in the development process.  I hope you find it useful.
+**cleanup-util** is a small, utility for tracking and cleaning up event handlers. I find this utility useful when I have classes derived from EventHandler that are used throughout the life of my applications and those EventHandlers frequently have event handlers added and removed. It helps me catch memory leaks from dangling event listeners early in the development process. I hope you find it useful.
 
 ## Installing / Getting started
 
@@ -23,8 +24,8 @@ function cleanupPropagationEvent<T extends EventEmitter>(
   event: string,
   listener: Listener,
   target: EventEmitter,
-  reciprocal?: string
-): void
+  reciprocal?: string,
+): void;
 ```
 
 Attaches the specified `listener` to the specified `sender`, wrapping the `listener` to track it's cleanup.
@@ -34,7 +35,11 @@ If `reciprocal` is specified, it is the name of an event on `target`, **cleanup-
 ### addCleanupTask
 
 ```ts
-function addCleanupTask<S extends EventEmitter, T>(sender: S, target: T, task: Task): void
+function addCleanupTask<S extends EventEmitter, T>(
+  sender: S,
+  target: T,
+  task: Task,
+): void;
 ```
 
 Adds a task to be run when the cleanup propagation event occurs.
@@ -53,7 +58,7 @@ Clears the instance Id associated with an object.
 
 ## Tests
 
-Tests are built using [Mocha](https://mochajs.org/) and chai.
+Tests are built using [Jest](https://jestjs.io/); we're near 100%!
 
 ```shell
 npm test
