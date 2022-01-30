@@ -2,10 +2,10 @@ name: CI
 
 on:
   push:
-    branches: 
-      - *
+    branches:
+      - '*'
   pull_request:
-    branches: 
+    branches:
       - master
 
   # Allows triggering workflow manually from the Actions tab
