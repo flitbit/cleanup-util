@@ -2,18 +2,15 @@ name: CI
 
 on:
   push:
-    branches:
-      - '*'
-  pull_request:
-    branches:
-      - main
-
-  # Allows triggering workflow manually from the Actions tab
-  workflow_dispatch:
+    tags:
+      - 'v*'
 
 jobs:
-  build_and_test:
+  publish:
+    name: Publish package
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
       - name: checkout code
@@ -30,3 +27,6 @@ jobs:
 
       - name: build and test
         run: npm run ci
+
+      - name: publish release
+        run: npm publish
