@@ -27,11 +27,11 @@ jobs:
       - name: build and test
         run: npm run ci
 
-      - name: build and test
+      - name: calc semver
         run: |
           npm i -g json semver
           PACKAGE_VERSION="$(cat package.json | json version)"
-          BRANCH_NAME=$(git symbolic-ref HEAD)
+          BRANCH_NAME=$(git symbolic-ref --short HEAD)
           VERSION_PRE="$(semver -i prepatch --preid ${BRANCH_NAME}.$(git rev-parse --short HEAD) ${PACKAGE_VERSION})"
           npm --no-git-tag-version version ${VERSION_PRE%.0}
           cat package.json | json version
